@@ -1,99 +1,117 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Login - Medilab</title>
-  <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="/assets/css/main.css" rel="stylesheet">
-</head>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Login</title>
 
-<body class="index-page">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.css"
+      rel="stylesheet"
+    />
+  </head>
 
-  <header id="header" class="header sticky-top">
-    <div class="branding d-flex align-items-center">
-      <div class="container d-flex align-items-center justify-content-between">
-        <a href="home.html" class="logo d-flex align-items-center me-auto">
-          <img src="/assets/img/logo.png" alt="">
-          <h1 class="sitename">Medilab</h1>
-        </a>
-      </div>
-    </div>
-  </header>
+  <body>
+    <main>
+      <div class="container marketing" style="margin-top: 100px">
+        <div class="row">
+          <form id="login-form">
+            <div class="mb-3">
+              <label class="form-label">Email address</label>
+              <input type="email" name="email" class="form-control" required />
+            </div>
 
-  <main class="main d-flex align-items-center justify-content-center" style="min-height: 100vh; background: #f9fafc;">
+            <div class="mb-3">
+              <label class="form-label">Password</label>
+              <input
+                type="password"
+                name="password"
+                class="form-control"
+                required
+                minlength="4"
+              />
+            </div>
 
-    <div class="card shadow-lg border-0" style="max-width: 450px; width: 100%; border-radius: 15px;">
-      <div class="card-body p-4">
-        <ul class="nav nav-tabs mb-4" id="loginTabs" role="tablist">
-          <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="login-tab" data-bs-toggle="tab" data-bs-target="#login" type="button" role="tab">Login</button>
-          </li>
-          <li class="nav-item" role="presentation">
-            <button class="nav-link" id="register-tab" data-bs-toggle="tab" data-bs-target="#register" type="button" role="tab">Register</button>
-          </li>
-        </ul>
-
-        <div class="tab-content" id="loginTabsContent">
-          <!-- Login Form -->
-          <div class="tab-pane fade show active" id="login" role="tabpanel">
-            <h4 class="text-center mb-3">Welcome Back</h4>
-            <form onsubmit="event.preventDefault(); window.location='home.html';">
-              <div class="mb-3">
-                <label for="loginEmail" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="loginEmail" required>
-              </div>
-              <div class="mb-3">
-                <label for="loginPassword" class="form-label">Password</label>
-                <input type="password" class="form-control" id="loginPassword" required>
-              </div>
-              <div class="d-flex justify-content-between align-items-center mb-3">
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" id="rememberMe">
-                  <label class="form-check-label" for="rememberMe">Remember me</label>
-                </div>
-                <a href="#" class="text-decoration-none">Forgot password?</a>
-              </div>
-              <button type="submit" class="btn btn-primary w-100">Login</button>
-            </form>
-          </div>
-
-          <!-- Register Form -->
-          <div class="tab-pane fade" id="register" role="tabpanel">
-            <h4 class="text-center mb-3">Create Account</h4>
-            <form onsubmit="event.preventDefault(); window.location='home.html';">
-              <div class="mb-3">
-                <label for="registerName" class="form-label">Full Name</label>
-                <input type="text" class="form-control" id="registerName" required>
-              </div>
-              <div class="mb-3">
-                <label for="registerEmail" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="registerEmail" required>
-              </div>
-              <div class="mb-3">
-                <label for="registerPassword" class="form-label">Password</label>
-                <input type="password" class="form-control" id="registerPassword" required>
-              </div>
-              <div class="mb-3">
-                <label for="registerConfirm" class="form-label">Confirm Password</label>
-                <input type="password" class="form-control" id="registerConfirm" required>
-              </div>
-              <button type="submit" class="btn btn-success w-100">Register</button>
-            </form>
-          </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+          </form>
         </div>
       </div>
-    </div>
+    </main>
 
-  </main>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.js"></script>
 
-  <footer id="footer" class="footer light-background text-center py-3 mt-auto">
-    <div class="container">
-      <p>© <strong>Medilab</strong> All Rights Reserved</p>
-    </div>
-  </footer>
+    <script src="utils/constants.js"></script>
+    <script src="utils/utils.js"></script>
+    <script src="services/user-service.js"></script>
 
-  <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-</body>
+    <script type="text/javascript">
+      // Example: your UserService should expose a login() that returns a token
+      // Adjust endpoint/response handling inside user-service.js if needed.
+
+      $(function () {
+        $("#login-form").validate({
+          submitHandler: function (form) {
+            const payload = {
+              email: $(form).find('input[name="email"]').val(),
+              password: $(form).find('input[name="password"]').val(),
+            };
+
+            UserService.login(payload)
+              .then((res) => {
+                // Accept either {token:"..."} or raw token string
+                const token = res?.token || res;
+                if (!token) {
+                  toastr.error("Login succeeded but token is missing.");
+                  return;
+                }
+
+                localStorage.setItem("token", token);
+
+                // Extract patient data from JWT payload
+                const jwt = Utils.parseJwt(token);
+
+                // Your backend decides names. These are common patterns:
+                // - patientId / id / sub
+                // - firstName/lastName OR name
+                // - role / roles
+                const patient = {
+                  patientId: jwt?.patientId ?? jwt?.id ?? jwt?.sub ?? null,
+                  firstName: jwt?.firstName ?? null,
+                  lastName: jwt?.lastName ?? null,
+                  name: jwt?.name ?? null,
+                  email: jwt?.email ?? payload.email ?? null,
+                  role: jwt?.role ?? (Array.isArray(jwt?.roles) ? jwt.roles[0] : null),
+                  raw: jwt, // keep full payload for debugging/usage
+                };
+
+                localStorage.setItem("patient", JSON.stringify(patient));
+
+                toastr.success("Logged in successfully!");
+                // Redirect wherever your app starts
+                window.location.href = "index.html";
+              })
+              .catch((err) => {
+                console.error(err);
+                toastr.error("Invalid email or password.");
+              });
+
+            return false;
+          },
+        });
+      });
+
+      // If you still need init logic
+      UserService.init && UserService.init();
+    </script>
+  </body>
 </html>
+
+

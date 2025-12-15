@@ -12,6 +12,7 @@
  * )
  */
 Flight::route('GET /appointment-services', function() {
+    Flight::auth_middleware()->authorizeRoles([Roles::ADMIN, Roles::USER]);
     Flight::json(Flight::appointmentServiceService()->get_all());
 });
 
@@ -32,6 +33,7 @@ Flight::route('GET /appointment-services', function() {
  * )
  */
 Flight::route('GET /appointment-services/@id', function($id) {
+    Flight::auth_middleware()->authorizeRoles([Roles::ADMIN, Roles::USER]);
     Flight::json(Flight::appointmentServiceService()->get_by_id((int)$id));
 });
 
@@ -54,6 +56,7 @@ Flight::route('GET /appointment-services/@id', function($id) {
  * )
  */
 Flight::route('GET /appointment-services/appointment/@appointment_id', function($appointment_id) {
+    Flight::auth_middleware()->authorizeRoles([Roles::ADMIN, Roles::USER]);
     Flight::json(Flight::appointmentServiceService()->getServicesByAppointment((int)$appointment_id));
 });
 
@@ -77,6 +80,7 @@ Flight::route('GET /appointment-services/appointment/@appointment_id', function(
  * )
  */
 Flight::route('POST /appointment-services', function() {
+     Flight::auth_middleware()->authorizeRole(Roles::ADMIN);
     $data = Flight::request()->data->getData();
     Flight::json(Flight::appointmentServiceService()->create($data));
 });
@@ -105,6 +109,7 @@ Flight::route('POST /appointment-services', function() {
  * )
  */
 Flight::route('PUT /appointment-services/@id', function($id) {
+     Flight::auth_middleware()->authorizeRole(Roles::ADMIN);
     $data = Flight::request()->data->getData();
     Flight::json(Flight::appointmentServiceService()->update((int)$id, $data));
 });
@@ -126,6 +131,7 @@ Flight::route('PUT /appointment-services/@id', function($id) {
  * )
  */
 Flight::route('DELETE /appointment-services/@id', function($id) {
+     Flight::auth_middleware()->authorizeRole(Roles::ADMIN);
     Flight::json(Flight::appointmentServiceService()->delete((int)$id));
 });
 

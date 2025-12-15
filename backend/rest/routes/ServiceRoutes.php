@@ -9,6 +9,7 @@
  * )
  */
 Flight::route('GET /services', function() {
+    Flight::auth_middleware()->authorizeRoles([Roles::ADMIN, Roles::USER]);
     Flight::json(Flight::serviceService()->get_all());
 });
 
@@ -24,6 +25,7 @@ Flight::route('GET /services', function() {
  * )
  */
 Flight::route('GET /services/@id', function($id) {
+    Flight::auth_middleware()->authorizeRoles([Roles::ADMIN, Roles::USER]);
     Flight::json(Flight::serviceService()->get_by_id((int)$id));
 });
 
@@ -39,6 +41,7 @@ Flight::route('GET /services/@id', function($id) {
  * )
  */
 Flight::route('GET /services/department/@department_id', function($department_id) {
+    Flight::auth_middleware()->authorizeRoles([Roles::ADMIN, Roles::USER]);
     Flight::json(Flight::serviceService()->getByDepartment((int)$department_id));
 });
 
@@ -54,6 +57,7 @@ Flight::route('GET /services/department/@department_id', function($department_id
  * )
  */
 Flight::route('GET /services/name/@service_name', function($service_name) {
+    Flight::auth_middleware()->authorizeRoles([Roles::ADMIN, Roles::USER]);
     Flight::json(Flight::serviceService()->getByName($service_name));
 });
 
@@ -73,6 +77,7 @@ Flight::route('GET /services/name/@service_name', function($service_name) {
  * )
  */
 Flight::route('POST /services', function() {
+     Flight::auth_middleware()->authorizeRole(Roles::ADMIN);
     $data = Flight::request()->data->getData();
     Flight::json(Flight::serviceService()->createService($data));
 });
@@ -93,6 +98,7 @@ Flight::route('POST /services', function() {
  * )
  */
 Flight::route('PUT /services/@id', function($id) {
+     Flight::auth_middleware()->authorizeRole(Roles::ADMIN);
     $data = Flight::request()->data->getData();
     Flight::json(Flight::serviceService()->update((int)$id, $data));
 });
@@ -107,6 +113,8 @@ Flight::route('PUT /services/@id', function($id) {
  * )
  */
 Flight::route('DELETE /services/@id', function($id) {
+     Flight::auth_middleware()->authorizeRole(Roles::ADMIN);
     Flight::json(Flight::serviceService()->delete((int)$id));
 });
 
+?>

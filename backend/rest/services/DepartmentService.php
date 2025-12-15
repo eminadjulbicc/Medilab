@@ -1,6 +1,6 @@
 <?php
-require_once '/../dao/BaseService.php';
-require_once '/../dao/DepartmentDao.php';
+require_once 'BaseService.php';
+require_once __DIR__ . "/../dao/DepartmentDao.php";
 
 class DepartmentService extends BaseService {
 

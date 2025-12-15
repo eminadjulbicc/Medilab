@@ -1,5 +1,5 @@
 <?php
-require_once '../../config.php';
+require_once __DIR__ . "/../../config.php";
 
 
 class BaseDao {
@@ -16,7 +16,7 @@ class BaseDao {
    public function getAll() {
        $stmt = $this->connection->prepare("SELECT * FROM " . $this->table);
        $stmt->execute();
-       return $stmt->fetchAll();
+       return $stmt->fetchAll(PDO::FETCH_ASSOC);
    }
 
 

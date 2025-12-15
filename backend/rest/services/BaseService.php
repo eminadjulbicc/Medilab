@@ -1,11 +1,12 @@
 <?php
-require_once '/../dao/BaseDao.php';
+require_once __DIR__ . "/../dao/BaseDao.php";
+
 class BaseService {
    protected $dao;
    public function __construct($dao) {
        $this->dao = $dao;
    }
-   public function getAll() {
+   public function get_all() {
        return $this->dao->getAll();
    }
    public function getById($id) {

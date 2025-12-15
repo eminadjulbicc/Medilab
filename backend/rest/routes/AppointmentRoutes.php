@@ -12,6 +12,7 @@
  * )
  */
 Flight::route('GET /appointments', function() {
+    Flight::auth_middleware()->authorizeRoles([Roles::ADMIN, Roles::USER]);
     Flight::json(Flight::appointmentService()->get_all());
 });
 
@@ -34,6 +35,7 @@ Flight::route('GET /appointments', function() {
  * )
  */
 Flight::route('GET /appointments/@id', function($id) {
+    Flight::auth_middleware()->authorizeRoles([Roles::ADMIN, Roles::USER]);
     Flight::json(Flight::appointmentService()->get_by_id((int)$id));
 });
 
@@ -56,6 +58,7 @@ Flight::route('GET /appointments/@id', function($id) {
  * )
  */
 Flight::route('GET /appointments/doctor/@doctor_id', function($doctor_id) {
+    Flight::auth_middleware()->authorizeRoles([Roles::ADMIN, Roles::USER]);
     Flight::json(Flight::appointmentService()->getByDoctor((int)$doctor_id));
 });
 
@@ -78,6 +81,7 @@ Flight::route('GET /appointments/doctor/@doctor_id', function($doctor_id) {
  * )
  */
 Flight::route('GET /appointments/patient/@patient_id', function($patient_id) {
+    Flight::auth_middleware()->authorizeRoles([Roles::ADMIN, Roles::USER]);
     Flight::json(Flight::appointmentService()->getByPatient((int)$patient_id));
 });
 
@@ -103,6 +107,7 @@ Flight::route('GET /appointments/patient/@patient_id', function($patient_id) {
  * )
  */
 Flight::route('POST /appointments', function() {
+     Flight::auth_middleware()->authorizeRole(Roles::ADMIN);
     $data = Flight::request()->data->getData();
     Flight::json(Flight::appointmentService()->create($data));
 });
@@ -135,6 +140,7 @@ Flight::route('POST /appointments', function() {
  * )
  */
 Flight::route('PUT /appointments/@id', function($id) {
+     Flight::auth_middleware()->authorizeRole(Roles::ADMIN);
     $data = Flight::request()->data->getData();
     Flight::json(Flight::appointmentService()->update((int)$id, $data));
 });
@@ -158,6 +164,7 @@ Flight::route('PUT /appointments/@id', function($id) {
  * )
  */
 Flight::route('DELETE /appointments/@id', function($id) {
+     Flight::auth_middleware()->authorizeRole(Roles::ADMIN);
     Flight::json(Flight::appointmentService()->delete((int)$id));
 });
 
