@@ -12,6 +12,7 @@
  * )
  */
 Flight::route('GET /departments', function() {
+    Flight::auth_middleware()->authorizeRoles([Roles::ADMIN, Roles::USER]);
     Flight::json(Flight::departmentService()->get_all());
 });
 
@@ -34,6 +35,7 @@ Flight::route('GET /departments', function() {
  * )
  */
 Flight::route('GET /departments/@id', function($id) {
+    Flight::auth_middleware()->authorizeRoles([Roles::ADMIN, Roles::USER]);
     Flight::json(Flight::departmentService()->get_by_id((int)$id));
 });
 
@@ -61,6 +63,7 @@ Flight::route('GET /departments/@id', function($id) {
  * )
  */
 Flight::route('POST /departments', function() {
+     Flight::auth_middleware()->authorizeRole(Roles::ADMIN);
     $data = Flight::request()->data->getData();
     Flight::json(Flight::departmentService()->create($data));
 });
@@ -95,6 +98,7 @@ Flight::route('POST /departments', function() {
  * )
  */
 Flight::route('PUT /departments/@id', function($id) {
+     Flight::auth_middleware()->authorizeRole(Roles::ADMIN);
     $data = Flight::request()->data->getData();
     Flight::json(Flight::departmentService()->update((int)$id, $data));
 });
@@ -118,6 +122,7 @@ Flight::route('PUT /departments/@id', function($id) {
  * )
  */
 Flight::route('DELETE /departments/@id', function($id) {
+     Flight::auth_middleware()->authorizeRole(Roles::ADMIN);
     Flight::json(Flight::departmentService()->delete((int)$id));
 });
 

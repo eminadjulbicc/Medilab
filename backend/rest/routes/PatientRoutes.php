@@ -8,6 +8,7 @@
  * )
  */
 Flight::route('GET /patients', function() {
+    Flight::auth_middleware()->authorizeRoles([Roles::ADMIN, Roles::USER]);
     Flight::json(Flight::patientService()->get_all());
 });
 
@@ -21,6 +22,7 @@ Flight::route('GET /patients', function() {
  * )
  */
 Flight::route('GET /patients/@id', function($id) {
+    Flight::auth_middleware()->authorizeRoles([Roles::ADMIN, Roles::USER]);
     Flight::json(Flight::patientService()->get_by_id((int)$id));
 });
 
@@ -34,6 +36,7 @@ Flight::route('GET /patients/@id', function($id) {
  * )
  */
 Flight::route('GET /patients/email/@email', function($email) {
+    Flight::auth_middleware()->authorizeRoles([Roles::ADMIN, Roles::USER]);
     Flight::json(Flight::patientService()->getByEmail($email));
 });
 
@@ -47,6 +50,7 @@ Flight::route('GET /patients/email/@email', function($email) {
  * )
  */
 Flight::route('GET /patients/phone/@phone', function($phone) {
+    Flight::auth_middleware()->authorizeRoles([Roles::ADMIN, Roles::USER]);
     Flight::json(Flight::patientService()->getByPhone($phone));
 });
 
@@ -59,10 +63,29 @@ Flight::route('GET /patients/phone/@phone', function($phone) {
  *         @OA\JsonContent(
  *             required={"email","phone"}
  *         )
+ *     ),
+ *     @OA\Response(
+ *         response=201,
+ *         description="Patient created successfully",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="id", type="integer", example=123),
+ *             @OA\Property(property="email", type="string", example="john.doe@example.com"),
+ *             @OA\Property(property="phone", type="string", example="+1234567890"),
+ *             @OA\Property(property="created_at", type="string", example="2025-01-01 12:00:00")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=400,
+ *         description="Bad request - validation failed",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="error", type="string", example="Email is required")
+ *         )
  *     )
  * )
  */
+
 Flight::route('POST /patients', function() {
+     Flight::auth_middleware()->authorizeRole(Roles::ADMIN);
     $data = Flight::request()->data->getData();
     Flight::json(Flight::patientService()->createPatient($data));
 });
@@ -72,22 +95,42 @@ Flight::route('POST /patients', function() {
  *     path="/patients/{id}",
  *     tags={"patients"},
  *     summary="Update patient",
- *     @OA\Parameter(name="id", in="path", required=true)
+ *     @OA\Parameter(name="id", in="path", required=true),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Patient updated successfully"
+ *     )
  * )
  */
+
 Flight::route('PUT /patients/@id', function($id) {
+     Flight::auth_middleware()->authorizeRole(Roles::ADMIN);
     $data = Flight::request()->data->getData();
     Flight::json(Flight::patientService()->update((int)$id, $data));
 });
+
 
 /**
  * @OA\Delete(
  *     path="/patients/{id}",
  *     tags={"patients"},
- *     summary="Delete patient"
+ *     summary="Delete patient",
+ *     @OA\Parameter(
+ *         name="id",
+ *         in="path",
+ *         required=true,
+ *         description="Patient ID",
+ *         @OA\Schema(type="integer", example=1)
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Patient deleted"
+ *     )
  * )
  */
 Flight::route('DELETE /patients/@id', function($id) {
+     Flight::auth_middleware()->authorizeRole(Roles::ADMIN);
     Flight::json(Flight::patientService()->delete((int)$id));
 });
 
+?>

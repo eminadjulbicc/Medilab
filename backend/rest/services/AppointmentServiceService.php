@@ -1,7 +1,6 @@
 <?php
-require_once '/../dao/BaseService.php';
-require_once '/../dao/AppointmentServiceDao.php';
-
+require_once 'BaseService.php';
+require_once __DIR__ . "/../dao/AppointmentServiceDao.php";
 class AppointmentServiceService extends BaseService {
 
     public function __construct() {
