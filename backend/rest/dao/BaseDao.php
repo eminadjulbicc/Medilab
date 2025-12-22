@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . "/../../config.php";
+require_once __DIR__ . "/../../Config.database.php";
 
 
 class BaseDao {
@@ -55,4 +55,15 @@ class BaseDao {
        $stmt->bindParam(':id', $id);
        return $stmt->execute();
    }
+
+   protected function query($query, $params = []) {
+        $stmt = $this->connection->prepare($query);
+        $stmt->execute($params);
+        return $stmt;
+    }
+
+    protected function query_unique($query, $params = []) {
+        $stmt = $this->query($query, $params);
+        return $stmt->fetch();
+    }
 }

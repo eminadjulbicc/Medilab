@@ -11,7 +11,7 @@ class Config
 {
    public static function DB_NAME()
    {
-       return 'database_name'; 
+       return 'medilab'; 
    }
    public static function DB_PORT()
    {

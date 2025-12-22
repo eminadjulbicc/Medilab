@@ -31,7 +31,6 @@ Flight::register('appointmentService', 'AppointmentService');
 require_once __DIR__ . '/rest/services/AppointmentServiceService.php';
 Flight::register('appointmentServiceService', 'AppointmentServiceService');
 
-require_once __DIR__ .'rest/routes/AuthRoutes.php';
 Flight::register('auth_service', "AuthService");
 
 Flight::register('auth_middleware', "AuthMiddleware");
@@ -77,7 +76,7 @@ Flight::before('start', function(&$params, &$output){
 });
 
 
-require_once __DIR__ .'/rest/routes/AuthRoutes.php';
+require __DIR__ .'/rest/routes/AuthRoutes.php';
 require_once __DIR__ . '/rest/routes/ServiceRoutes.php';
 require_once __DIR__ . '/rest/routes/PatientRoutes.php';
 require_once __DIR__ . '/rest/routes/DoctorRoutes.php';

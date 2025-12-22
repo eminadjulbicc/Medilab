@@ -77,16 +77,12 @@ CREATE TABLE `Departments` (
 
 CREATE TABLE `Doctors` (
   `id` int(11) AUTO_INCREMENT NOT NULL,
-  `user_id` INT NOT NULL UNIQUE,
   `full_name` varchar(100) NOT NULL,
   `specialization` varchar(100) DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
   `phone` varchar(20) DEFAULT NULL,
   `department_id` int(11) DEFAULT NULL,
-  FOREIGN KEY (user_id) REFERENCES users(user_id)
-        ON DELETE CASCADE,
-    FOREIGN KEY (department_id) REFERENCES departments(department_id)
-        ON DELETE RESTRICT
+  
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -97,15 +93,12 @@ CREATE TABLE `Doctors` (
 
 CREATE TABLE `Patients` (
   `id` int(11) AUTO_INCREMENT NOT NULL,
-  `user_id` INT NOT NULL UNIQUE,
   `full_name` varchar(100) NOT NULL,
   `date_of_birth` date DEFAULT NULL,
   `gender` varchar(10) DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
   `phone` varchar(20) DEFAULT NULL,
   `address` text DEFAULT NULL,
-   FOREIGN KEY (user_id) REFERENCES users(user_id)
-        ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
